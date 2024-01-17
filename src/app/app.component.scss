@@ -1,0 +1,108 @@
+div.layout-container {
+  max-width: 74rem;
+  height: calc(100vh - 10rem);
+  margin: 5rem auto;
+  padding: 2.5rem;
+
+  background: var(--gray-800);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    img {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.5rem;
+
+      a {
+        width: 3rem;
+        height: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: var(--gray-100);
+
+        border-top: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+          border-bottom: 3px solid var(--green-500);
+        }
+
+        &.active {
+          color: var(--green-500);
+        }
+
+        svg {
+          width: 1.5rem;
+        }
+      }
+
+    }
+  }
+
+  main.home-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      gap: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+
+      color: var(--gray-100);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .stop-countdown-button {
+      background: var(--red-500);
+
+      &:not(:disabled):hover {
+        background: var(--red-700);
+      }
+    }
+
+    .start-countdown-button {
+      background: var(--green-500);
+
+      &:not(:disabled):hover {
+        background: var(--green-700);
+      }
+    }
+  }
+}
