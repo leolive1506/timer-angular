@@ -1,15 +1,16 @@
 <main class="home-container">
-  <form>
-    <app-form></app-form>
+  <form [formGroup]="form">
+    <app-form
+    ></app-form>
+    <!-- [project]="form.controls['project']"
+    [minutesAmount]="form.controls['minutesAmount']" -->
+    <!-- {{ form.get('project')?.value }} -->
     <app-countdown></app-countdown>
-
     <button *ngIf="activeCycle" class="stop-countdown-button" type="button">
-      Icone
-      Interromper
+      Icone Interromper
     </button>
-    <button *ngIf="!activeCycle" class="start-countdown-button">
-      Icone
-      Começar
+    <button *ngIf="!activeCycle" class="start-countdown-button" (click)="submit()">
+      Iniciar
     </button>
   </form>
 </main>

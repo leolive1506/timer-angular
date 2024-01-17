@@ -1,9 +1,10 @@
-<div class="form-container">
+<div class="form-container" [formGroup]="form">
   <label htmlFor="task">Vou trabalhar em</label>
   <input
     id="task"
     placeholder="Dê um nome para seu projeto"
     list="task-suggestions"
+    formControlName="project"
   />
 
   <datalist id="task-suggestions">
@@ -13,8 +14,10 @@
   </datalist>
 
   <label htmlFor="minutesAmount">durante</label>
+  <!-- [formControl]="minutesAmount" -->
   <input
     type="number"
+    formControlName="minutesAmount"
     id="minutesAmount"
     placeholder="00"
     step={1}

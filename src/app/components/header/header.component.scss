@@ -27,6 +27,7 @@ header {
 
       &:hover {
         border-bottom: 3px solid var(--green-500);
+        cursor: pointer;
       }
 
       &.active {
