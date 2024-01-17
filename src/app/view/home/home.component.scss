@@ -48,4 +48,49 @@ main.home-container {
       background: var(--green-700);
     }
   }
+
+  div.form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-100);
+  
+    font-size: 1.125rem;
+    font-weight: bold;
+    flex-wrap: wrap;
+  
+    input {
+      background: transparent;
+      height: 2.5rem;
+      border: 0;
+      border-bottom: 2px solid var(--gray-500);
+      font-weight: bold;
+      font-size: 1.125rem;
+      padding: 0 0.5rem;
+      color: var(--gray-100);
+  
+      &:focus {
+        box-shadow: none;
+        border-color: var(--green-500);
+      }
+  
+      &::placeholder {
+        color: var(--gray-500);
+      }
+  
+      #task {
+        flex: 1;
+        &::-webkit-calendar-picker-indicator {
+          display: none !important;
+        }
+      }
+  
+      #minutesAmount {
+        width: 4rem;
+      }
+    }
+  }
+  
 }
