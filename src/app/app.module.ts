@@ -7,13 +7,15 @@ import { FormComponent } from './components/form/form.component';
 import { CountdownComponent } from './components/countdown/countdown.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './view/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
     CountdownComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

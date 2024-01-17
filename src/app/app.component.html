@@ -1,18 +1,4 @@
 <div class="layout-container">
   <app-header></app-header>
-  <main class="home-container">
-    <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-      <app-form></app-form>
-      <app-countdown></app-countdown>
-
-      <button *ngIf="activeCycle" class="stop-countdown-button" type="button">
-        Icone
-        Interromper
-      </button>
-      <button *ngIf="!activeCycle" class="start-countdown-button">
-        Icone
-        Começar
-      </button>
-    </form>
-  </main>
+  <app-home></app-home>
 </div>
