@@ -10,50 +10,6 @@ div.layout-container {
   display: flex;
   flex-direction: column;
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-
-    img {
-      width: 3rem;
-      height: 3rem;
-    }
-
-    nav {
-      display: flex;
-      gap: 0.5rem;
-
-      a {
-        width: 3rem;
-        height: 3rem;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        color: var(--gray-100);
-
-        border-top: 3px solid transparent;
-        border-bottom: 3px solid transparent;
-
-        &:hover {
-          border-bottom: 3px solid var(--green-500);
-        }
-
-        &.active {
-          color: var(--green-500);
-        }
-
-        svg {
-          width: 1.5rem;
-        }
-      }
-
-    }
-  }
-
   main.home-container {
     flex: 1;
     display: flex;
