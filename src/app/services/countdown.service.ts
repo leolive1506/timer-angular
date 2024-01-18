@@ -14,18 +14,23 @@ export class CountdownService {
   currentSeconds: number;
   subscription: Subscription;
 
-  timer(seconds: number = 4) {
+  timer(seconds: number) {
     this.secondsSubject.next(seconds)
 
     let currentSeconds = this.secondsSubject.value
-    const observable = timer(1000, 1000)
     let isNumberValid = currentSeconds > 0
+
+    const observable = timer(1000, 1000)
     
-    this.subscription = observable.subscribe(() => {
-      if (isNumberValid) {
-        isNumberValid = --currentSeconds > 0
-        this.secondsSubject.next(currentSeconds)
-      }
+    this.subscription = observable.subscribe({
+      next: () => {
+        if (isNumberValid) {
+          isNumberValid = --currentSeconds > 0
+          this.secondsSubject.next(currentSeconds)
+        } else {
+          this.secondsSubject.complete()
+        }
+      },
     })
 
     if (!isNumberValid) {

@@ -14,9 +14,11 @@ import { TaskService } from 'src/app/services/task.service';
 
 export class HomeComponent implements OnInit, OnDestroy {
   activeCycle: boolean = false
+  task: Task;
 
   minutesTemplate: string = ''
   secondsTemplate: string = ''
+  taskSuggestions: Task[] = []
 
   subscription: Subscription
 
@@ -32,8 +34,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.countdownService.seconds$.subscribe(number => {
-      this.setCountdownTemplate(number)
+    this.service.list({ _limit: 3 }).subscribe(tasks => {
+      this.taskSuggestions = tasks
+    })
+
+    this.subscription = this.countdownService.seconds$.subscribe({
+      next: (number) => {
+        this.setCountdownTemplate(number)
+      },
+      complete: () => this.completeTask()
     })
   }
 
@@ -41,18 +50,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  submit() {
+  submit(): void {
     this.service.create(this.form.value).subscribe(data => {
+      this.task = data
       this.countdownService.timer(data.secondsAmount)
       this.activeCycle = true
     })
     this.form.reset()
   }
 
-  interruptCycle() {
+  interruptCycle(): void {
+    this.service.updateTaskInterrupt(this.task).subscribe()
     this.subscription.unsubscribe()
     this.countdownService.cancelSubscription()
     this.setCountdownTemplate(0)
+    this.initialState()
+  }
+
+  completeTask(): void {
+    this.service.updateTaskCompleted(this.task).subscribe()
+    this.initialState()
+  }
+
+  initialState() {
+    this.task = null
+    this.activeCycle = false;
   }
 
   setCountdownTemplate(number: number): void {

@@ -4,53 +4,17 @@
       "id": "1",
       "task": "Aprender angular",
       "secondsAmount": "Aprender angular",
-      "createdAt": "17-01-2025T17:34:00"
+      "createdAt": "17-01-2025T17:34:00",
+      "finishedAt": null,
+      "interruptedAt": null
     },
     {
-      "id": "942d",
-      "secondsAmount": 180,
-      "createdAt": "2024-01-18T00:16:45.771Z"
-    },
-    {
-      "id": "8581",
-      "secondsAmount": 300,
-      "createdAt": "2024-01-18T00:17:21.321Z"
-    },
-    {
-      "id": "dd73",
-      "task": "test",
-      "secondsAmount": 180,
-      "createdAt": "2024-01-18T00:18:14.425Z"
-    },
-    {
-      "id": "f7a6",
-      "task": "criando novo projeto",
-      "secondsAmount": 180,
-      "createdAt": "2024-01-18T00:19:31.803Z"
-    },
-    {
-      "id": "eac0",
-      "task": "um dois",
-      "secondsAmount": 60,
-      "createdAt": "2024-01-18T00:21:13.775Z"
-    },
-    {
-      "id": "475d",
-      "task": "asdf",
-      "secondsAmount": 60,
-      "createdAt": "2024-01-18T00:24:06.691Z"
-    },
-    {
-      "id": "43f0",
-      "task": "test",
-      "secondsAmount": 60,
-      "createdAt": "2024-01-18T00:26:15.466Z"
-    },
-    {
-      "id": "d989",
-      "task": "Tarefa teste",
-      "secondsAmount": 60,
-      "createdAt": "2024-01-18T00:33:34.247Z"
+      "task": "evento cancelado",
+      "secondsAmount": 6,
+      "createdAt": "2024-01-18T02:00:02.647Z",
+      "finishedAt": null,
+      "interruptedAt": "2024-01-18T02:00:03.943Z",
+      "id": "iNhxLwQ"
     }
   ]
 }

@@ -9,10 +9,8 @@
         formControlName="task"
       />
     
-      <datalist id="task-suggestions">
-        <option value="Projeto 1"></option>
-        <option value="Projeto 2"></option>
-        <option value="Projeto 3"></option>
+      <datalist id="task-suggestions" *ngFor="let task of taskSuggestions">
+        <option [value]="task.task"></option>
       </datalist>
     
       <label htmlFor="minutesAmount">durante</label>

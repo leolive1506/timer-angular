@@ -2,10 +2,12 @@ export interface Task {
   id?: number;
   task: string;
   secondsAmount: number;
-  createdAt?: Date
+  createdAt: Date
+  finishedAt?: Date
+  interruptedAt?: Date
 }
 
-export type UnsaveTask = Omit<Task, 'secondsAmount'> & {
+export type UnsavedTask = Omit<Task, 'secondsAmount'> & {
   minutesAmount: number
 }
   
