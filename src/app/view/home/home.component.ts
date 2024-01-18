@@ -14,14 +14,13 @@ import { TaskService } from 'src/app/services/task.service';
 export class HomeComponent implements OnInit, OnDestroy {
   activeCycle: boolean = false
 
-  seconds: number
   minutesTemplate: string = ''
   secondsTemplate: string = ''
 
   subscription: Subscription
 
   form: FormGroup = this.formBuilder.group({
-    project: [''],
+    task: [''],
     minutesAmount: [0]
   })
 
@@ -45,8 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   submit() {
     this.service.create(this.form.value).subscribe(data => {
-      this.seconds = this.countdownService.toSeconds(data.minutesAmount)
-      this.countdownService.timer(this.seconds)
+      this.countdownService.timer(data.secondsAmount)
     })
   }
 

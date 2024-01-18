@@ -3,74 +3,30 @@
     {
       "id": "1",
       "task": "Aprender angular",
-      "minutesAmount": "Aprender angular",
+      "secondsAmount": "Aprender angular",
       "createdAt": "17-01-2025T17:34:00"
     },
     {
-      "id": 1,
-      "project": "asdfasdf",
-      "minutesAmount": 30,
-      "createdAt": "2024-01-17T20:44:19.559Z"
+      "id": "942d",
+      "secondsAmount": 180,
+      "createdAt": "2024-01-18T00:16:45.771Z"
     },
     {
-      "id": 1,
-      "project": "Test",
-      "minutesAmount": 30,
-      "createdAt": "2024-01-17T20:58:33.993Z"
+      "id": "8581",
+      "secondsAmount": 300,
+      "createdAt": "2024-01-18T00:17:21.321Z"
     },
     {
-      "id": 1,
-      "project": "teste",
-      "minutesAmount": 30,
-      "createdAt": "2024-01-17T20:59:27.705Z"
+      "id": "dd73",
+      "task": "test",
+      "secondsAmount": 180,
+      "createdAt": "2024-01-18T00:18:14.425Z"
     },
     {
-      "id": 1,
-      "project": "fsdfg",
-      "minutesAmount": 40,
-      "createdAt": "2024-01-17T21:00:01.992Z"
-    },
-    {
-      "id": 1,
-      "project": "test",
-      "minutesAmount": 30,
-      "createdAt": "2024-01-17T21:00:38.816Z"
-    },
-    {
-      "id": 1,
-      "project": "abrobra",
-      "minutesAmount": 30,
-      "createdAt": "2024-01-17T21:00:53.561Z"
-    },
-    {
-      "id": 1,
-      "project": "test",
-      "minutesAmount": 24,
-      "createdAt": "2024-01-17T21:03:23.385Z"
-    },
-    {
-      "id": 1,
-      "project": "asdf",
-      "minutesAmount": 3,
-      "createdAt": "2024-01-17T21:05:17.207Z"
-    },
-    {
-      "id": 1,
-      "project": "test",
-      "minutesAmount": 1,
-      "createdAt": "2024-01-17T22:36:30.844Z"
-    },
-    {
-      "id": 1,
-      "project": "teste",
-      "minutesAmount": 1,
-      "createdAt": "2024-01-17T22:44:19.610Z"
-    },
-    {
-      "id": 1,
-      "project": "",
-      "minutesAmount": 2,
-      "createdAt": "2024-01-17T22:47:30.453Z"
+      "id": "f7a6",
+      "task": "criando novo projeto",
+      "secondsAmount": 180,
+      "createdAt": "2024-01-18T00:19:31.803Z"
     }
   ]
 }

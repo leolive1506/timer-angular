@@ -38,7 +38,7 @@ export class CountdownService {
     this.subscription.unsubscribe()
   }
 
-  toSeconds(minutes: number) {
+  static toSeconds(minutes: number) {
     return minutes * 60;
   }
 
