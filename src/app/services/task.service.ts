@@ -47,7 +47,6 @@ export class TaskService {
 
   updateTaskInterrupt(task: Task) {
     task.interruptedAt = new Date()
-
     return this.update(task)
   }
 

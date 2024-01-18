@@ -10,4 +10,3 @@ export interface Task {
 export type UnsavedTask = Omit<Task, 'secondsAmount'> & {
   minutesAmount: number
 }
-  

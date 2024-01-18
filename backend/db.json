@@ -7,14 +7,6 @@
       "createdAt": "17-01-2025T17:34:00",
       "finishedAt": null,
       "interruptedAt": null
-    },
-    {
-      "task": "evento cancelado",
-      "secondsAmount": 6,
-      "createdAt": "2024-01-18T02:00:02.647Z",
-      "finishedAt": null,
-      "interruptedAt": "2024-01-18T02:00:03.943Z",
-      "id": "iNhxLwQ"
     }
   ]
 }

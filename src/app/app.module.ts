@@ -9,13 +9,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './view/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CountdownComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
