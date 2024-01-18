@@ -2,28 +2,48 @@
   <form [formGroup]="form">
     <div class="form-container">
       <label htmlFor="task">Vou trabalhar em</label>
-      <input
-        id="task"
-        placeholder="Dê um nome para seu projeto"
-        list="task-suggestions"
-        formControlName="task"
-      />
+      <div class="input-group">
+        <input
+          id="task"
+          placeholder="Dê um nome para seu projeto"
+          list="task-suggestions"
+          formControlName="task"
+        />
 
-      <datalist id="task-suggestions">
-        <option *ngFor="let task of taskSuggestions" [value]="task.task"></option>
-      </datalist>
+        <datalist id="task-suggestions">
+          <option *ngFor="let task of taskSuggestions" [value]="task.task"></option>
+        </datalist>
+
+        <div class="text-error" *ngIf="form.get('task')?.errors?.['required'] && form.get('task')?.touched">
+          O projeto é obrigatório
+        </div>
+      </div>
 
       <label htmlFor="minutesAmount">durante</label>
       <!-- [formControl]="minutesAmount" -->
-      <input
-        type="number"
-        formControlName="minutesAmount"
-        id="minutesAmount"
-        placeholder="00"
-        step={1}
-        min={1}
-        max={60}
-      />
+      <div class="input-group">
+        <input
+          type="number"
+          formControlName="minutesAmount"
+          id="minutesAmount"
+          placeholder="00"
+          step={1}
+          min={1}
+          max={60}
+        />
+
+        <div class="text-error" *ngIf="form.get('minutesAmount')?.touched">
+          <div class="text-error" *ngIf="form.get('minutesAmount')?.errors?.['required']">
+            O valor minimo é um
+          </div>
+          <div class="text-error" *ngIf="form.get('minutesAmount')?.errors?.['min']">
+            O valor minimo é um
+          </div>
+          <div class="text-error" *ngIf="form.get('minutesAmount')?.errors?.['max']">
+            O valor máximo é 60
+          </div>
+        </div>
+      </div>
 
       <span>minutos.</span>
     </div>
@@ -35,11 +55,15 @@
 
        Interromper
     </button>
-    <button *ngIf="!activeCycle" class="start-countdown-button" (click)="submit()">
+    <button
+      *ngIf="!activeCycle"
+      class="start-countdown-button"
+      (click)="submit()"
+      [disabled]="!form.valid"
+    >
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
       </svg>
-
       Iniciar
     </button>
   </form>

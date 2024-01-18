@@ -30,42 +30,50 @@ main.home-container {
     svg {
       width: 2rem
     }
-  }
 
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
-  .stop-countdown-button {
-    background: var(--red-500);
+    &.stop-countdown-button {
+      background: var(--red-500);
 
-    &:not(:disabled):hover {
-      background: var(--red-700);
+      &:not(:disabled):hover {
+        background: var(--red-700);
+      }
+    }
+
+    &.start-countdown-button {
+      background: var(--green-500);
+
+      &:not(:disabled):hover {
+        background: var(--green-700);
+      }
     }
   }
-
-  .start-countdown-button {
-    background: var(--green-500);
-
-    &:not(:disabled):hover {
-      background: var(--green-700);
-    }
-  }
-
 
   div.form-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    // flex-direction: column;
     color: var(--gray-100);
-  
+
     font-size: 1.125rem;
     font-weight: bold;
     flex-wrap: wrap;
-  
+
+    .input-group {
+      position: relative;
+
+      .text-error {
+        position: absolute;
+        bottom: -55%;
+      }
+    }
+
     input {
       background: transparent;
       height: 2.5rem;
@@ -75,27 +83,31 @@ main.home-container {
       font-size: 1.125rem;
       padding: 0 0.5rem;
       color: var(--gray-100);
-  
+
       &:focus {
         box-shadow: none;
         border-color: var(--green-500);
       }
-  
+
       &::placeholder {
         color: var(--gray-500);
       }
-  
+
+      &.ng-invalid.ng-touched {
+        border-color: var(--red-500);
+      }
+
       #task {
         flex: 1;
         &::-webkit-calendar-picker-indicator {
           display: none !important;
         }
       }
-  
+
       #secondsAmount {
         width: 4rem;
       }
     }
   }
-  
+
 }

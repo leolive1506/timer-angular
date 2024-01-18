@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { CountdownService } from 'src/app/services/countdown.service';
@@ -22,8 +22,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription
 
   form: FormGroup = this.formBuilder.group({
-    task: [''],
-    minutesAmount: [0]
+    task: ['', Validators.required],
+    minutesAmount: [0, Validators.compose([
+      Validators.required,
+      Validators.min(1),
+      Validators.max(60),
+    ])]
   })
 
   constructor(
@@ -48,6 +52,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.setCountdownTemplate(number)
       }
     })
+
+    this.activeCycle = !!this.service.activeTask
   }
 
   ngOnDestroy(): void {
