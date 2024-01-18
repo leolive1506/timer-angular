@@ -49,4 +49,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
+  interruptCycle() {
+    this.subscription.unsubscribe()
+    this.countdownService.cancelSubscription()
+  }
+
 }
