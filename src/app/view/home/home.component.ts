@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   submit() {
     this.service.create(this.form.value).subscribe(data => {
       this.countdownService.timer(data.secondsAmount)
+      this.activeCycle = true
     })
   }
 

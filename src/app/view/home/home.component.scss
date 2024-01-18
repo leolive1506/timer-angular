@@ -26,6 +26,10 @@ main.home-container {
     cursor: pointer;
 
     color: var(--gray-100);
+
+    svg {
+      width: 2rem
+    }
   }
 
   &:disabled {
@@ -48,6 +52,7 @@ main.home-container {
       background: var(--green-700);
     }
   }
+
 
   div.form-container {
     width: 100%;
