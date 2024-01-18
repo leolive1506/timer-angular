@@ -6,7 +6,8 @@ import { HistoryComponent } from './components/history/history.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    pathMatch: 'full'
   },
   {
     path: 'history',

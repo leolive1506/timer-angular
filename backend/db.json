@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "task": "novo test",
+      "task": "Angular >>> React",
       "secondsAmount": 60,
       "createdAt": "2024-01-18T02:37:11.450Z",
       "finishedAt": null,
@@ -9,20 +9,20 @@
       "id": "fudX3Nq"
     },
     {
-      "task": "Testando",
-      "secondsAmount": 120,
-      "createdAt": "2024-01-18T02:41:38.230Z",
-      "finishedAt": null,
+      "task": "nem to acreditando",
+      "secondsAmount": 6,
+      "createdAt": "2024-01-18T16:48:06.665Z",
+      "finishedAt": "2024-01-18T16:48:12.680Z",
       "interruptedAt": null,
-      "id": "6M8wOK9"
+      "id": "MmV9P1e"
     },
     {
-      "task": "test novo",
-      "secondsAmount": 1800,
-      "createdAt": "2024-01-18T02:43:15.829Z",
-      "finishedAt": null,
-      "interruptedAt": "2024-01-18T02:43:18.693Z",
-      "id": "3oXdrl5"
+      "task": "outro uai",
+      "secondsAmount": 6,
+      "createdAt": "2024-01-18T16:48:21.422Z",
+      "finishedAt": "2024-01-18T16:48:27.425Z",
+      "interruptedAt": null,
+      "id": "wM_sK_L"
     }
   ]
 }

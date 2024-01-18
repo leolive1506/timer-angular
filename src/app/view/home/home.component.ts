@@ -8,12 +8,12 @@ import { TaskService } from 'src/app/services/task.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  // providers: [CountdownService]
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
   activeCycle: boolean = false
-  task: Task;
 
   minutesTemplate: string = ''
   secondsTemplate: string = ''
@@ -30,18 +30,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private service: TaskService,
     private countdownService: CountdownService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.service.list({ _limit: 3 }).subscribe(tasks => {
+    console.log('ngOnInit')
+    this.service.tasks$.subscribe(tasks => {
       this.taskSuggestions = tasks
     })
 
     this.subscription = this.countdownService.seconds$.subscribe({
       next: (number) => {
+        if (number === 0 && this.activeCycle) {
+          return this.completeTask()
+        }
+
         this.setCountdownTemplate(number)
-      },
-      complete: () => this.completeTask()
+      }
     })
   }
 
@@ -50,16 +55,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    this.service.create(this.form.value).subscribe(data => {
-      this.task = data
-      this.countdownService.timer(data.secondsAmount)
-      this.activeCycle = true
-    })
+    const task = this.service.create(this.form.value)
+    this.countdownService.timer(task.secondsAmount)
+    this.activeCycle = true
+
     this.form.reset()
   }
 
   interruptCycle(): void {
-    this.service.updateTaskInterrupt(this.task).subscribe()
+    this.service.updateTaskInterrupt().subscribe()
     this.subscription.unsubscribe()
     this.countdownService.cancelSubscription()
     this.setCountdownTemplate(0)
@@ -67,13 +71,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   completeTask(): void {
-    this.service.updateTaskCompleted(this.task).subscribe()
+    this.service.updateTaskCompleted().subscribe(data => console.log('finish update', data))
     this.initialState()
   }
 
   initialState() {
-    this.task = null
     this.activeCycle = false;
+    this.setCountdownTemplate(0)
   }
 
   setCountdownTemplate(number: number): void {

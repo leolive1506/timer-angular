@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task, UnsavedTask } from '../models/task';
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CountdownService } from './countdown.service';
 import { TaskFilters } from '../models/filters/task-filter';
 
@@ -12,18 +12,24 @@ import { TaskFilters } from '../models/filters/task-filter';
 export class TaskService {
   private readonly API = 'http://localhost:3000/tasks'
 
+  private taskSubject = new BehaviorSubject<Task[]>([])
+  tasks$ = this.taskSubject.asObservable()
+  activeTask: Task
+
   constructor(private http: HttpClient) { }
 
-  list(filter: TaskFilters = {} as TaskFilters): Observable<Task[]> {
+  list(filter: TaskFilters = {} as TaskFilters): void {
     let params = new HttpParams()
     if (Object.keys(filter).length > 0) {
       params = params.set('_limit', filter._limit)
     }
 
-    return this.http.get<Task[]>(this.API, { params })
+    this.http.get<Task[]>(this.API, { params }).subscribe(tasks => {
+      this.taskSubject.next(tasks)
+    })
   }
 
-  create(task: UnsavedTask): Observable<Task> {
+  create(task: UnsavedTask): Task {
     const newTask: Task = {
       task: task.task,
       secondsAmount: CountdownService.toSeconds(task.minutesAmount),
@@ -32,22 +38,36 @@ export class TaskService {
       interruptedAt: null
     }
 
-    return this.http.post<Task>(this.API, newTask)
+    this.http.post<Task>(this.API, newTask).subscribe(task => {
+      const tasks = this.taskSubject.getValue()
+      tasks.unshift(task)
+      this.activeTask = task
+      this.taskSubject.next(tasks)
+    })
+
+    return newTask
   }
 
   update(task: Task): Observable<Task> {
+    console.log('updated')
     const url = `${this.API}/${task.id}`
     return this.http.put<Task>(url, task)
   }
 
-  updateTaskCompleted(task: Task): Observable<Task> {
-    task.finishedAt = new Date()
-    return this.update(task)
+  updateTaskCompleted(): Observable<Task> {
+    this.activeTask.finishedAt = new Date()
+    const taskUpdate = this.update(this.activeTask)
+    this.activeTask = null
+
+    return taskUpdate
   }
 
-  updateTaskInterrupt(task: Task) {
-    task.interruptedAt = new Date()
-    return this.update(task)
+  updateTaskInterrupt(): Observable<Task> {
+    this.activeTask.interruptedAt = new Date()
+    const taskUpdate = this.update(this.activeTask)
+    this.activeTask = null
+
+    return taskUpdate
   }
 
 }
