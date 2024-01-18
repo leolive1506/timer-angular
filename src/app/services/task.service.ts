@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task, UnsavedTask } from '../models/Task';
+import { Task, UnsavedTask } from '../models/task';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { CountdownService } from './countdown.service';

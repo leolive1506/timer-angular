@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { timer } from 'rxjs';
-import { CountdownTemplate } from '../models/CountdownTemplate';
+import { CountdownTemplate } from '../models/countdown-template';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class CountdownService {
     let isNumberValid = currentSeconds > 0
 
     const observable = timer(1000, 1000)
-    
+
     this.subscription = observable.subscribe({
       next: () => {
         if (isNumberValid) {

@@ -1,8 +1,7 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { CountdownTemplate } from 'src/app/models/CountdownTemplate';
-import { Task } from 'src/app/models/Task';
+import { Task } from 'src/app/models/task';
 import { CountdownService } from 'src/app/services/countdown.service';
 import { TaskService } from 'src/app/services/task.service';
 
