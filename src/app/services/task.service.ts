@@ -19,9 +19,15 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   list(filter: TaskFilters = {} as TaskFilters): void {
+    console.log('list ', filter)
     let params = new HttpParams()
-    if (Object.keys(filter).length > 0) {
-      params = params.set('_limit', filter._limit)
+    const keysFilters = Object.keys(filter)
+
+    if (keysFilters.length > 0) {
+      keysFilters.forEach(key => {
+        console.log(key, filter[key])
+        params = params.set(key, filter[key])
+      })
     }
 
     this.http.get<Task[]>(this.API, { params }).subscribe(tasks => {
@@ -48,25 +54,34 @@ export class TaskService {
     return newTask
   }
 
-  update(task: Task): Observable<Task> {
-    console.log('updated')
+  update(task: Task): Task {
     const url = `${this.API}/${task.id}`
-    return this.http.put<Task>(url, task)
+    this.http.put<Task>(url, task).subscribe(taskUpdated => {
+      task = taskUpdated
+      const tasks = this.taskSubject.getValue()
+      const index = tasks.findIndex(item => item.id === task.id)
+      tasks[index] = task
+      this.taskSubject.next(tasks)
+    })
+
+    return task
   }
 
-  updateTaskCompleted(): Observable<Task> {
+  updateTaskCompleted(): Task {
     this.activeTask.finishedAt = new Date()
     const taskUpdate = this.update(this.activeTask)
     this.activeTask = null
+    console.log('finish update', taskUpdate)
 
     return taskUpdate
   }
 
-  updateTaskInterrupt(): Observable<Task> {
+  updateTaskInterrupt(): Task {
     this.activeTask.interruptedAt = new Date()
     const taskUpdate = this.update(this.activeTask)
     this.activeTask = null
 
+    console.log('interrupt update', taskUpdate)
     return taskUpdate
   }
 

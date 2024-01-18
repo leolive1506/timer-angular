@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit')
+    this.service.list({ _limit: 3 })
     this.service.tasks$.subscribe(tasks => {
       this.taskSuggestions = tasks
     })
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   interruptCycle(): void {
-    this.service.updateTaskInterrupt().subscribe()
+    this.service.updateTaskInterrupt()
     this.subscription.unsubscribe()
     this.countdownService.cancelSubscription()
     this.setCountdownTemplate(0)
@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   completeTask(): void {
-    this.service.updateTaskCompleted().subscribe(data => console.log('finish update', data))
     this.initialState()
   }
 

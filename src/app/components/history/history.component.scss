@@ -4,10 +4,45 @@ div.history-container {
   display: flex;
   flex-direction: column;
 
-  h1 {
-    font-size: 1.5rem;
-    color: var(--gray-100);
+  header {
+    display: flex;
+    gap: 2rem;
+    justify-content: start;
+    // align-items: ;
+
+    h1 {
+      font-size: 1.5rem;
+      color: var(--gray-100);
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: 2px solid var(--gray-500);
+      font-weight: 500;
+      font-size: 1.125rem;
+      padding: 0.5rem;
+      color: var(--gray-100);
+      border-radius: 5px;
+
+      &:focus {
+        box-shadow: none;
+        border-color: var(--green-500);
+      }
+
+      &::placeholder {
+        color: var(--gray-500);
+      }
+
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        display: none;
+      }
+    }
   }
+
 
   .history-list {
     flex: 1;

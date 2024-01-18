@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription, repeat, takeUntil } from 'rxjs';
 import { timer } from 'rxjs';
 import { CountdownTemplate } from '../models/countdown-template';
+import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CountdownService {
   currentSeconds: number;
   subscription: Subscription;
 
-  constructor() {
+  constructor(private taskService: TaskService) {
 
   }
 
@@ -38,9 +39,14 @@ export class CountdownService {
 
           this.secondsSubject.next(currentSeconds)
         } else {
+          if (this.taskService.activeTask && currentSeconds === 0) {
+            this.taskService.updateTaskCompleted()
+          }
+
           this.stop()
         }
       },
+      error: () => this.taskService.updateTaskInterrupt(),
       complete: () => this.cancelSubscription()
     })
   }
