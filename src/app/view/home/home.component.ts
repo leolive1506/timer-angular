@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CountdownTemplate } from 'src/app/models/CountdownTemplate';
 import { Task } from 'src/app/models/Task';
 import { CountdownService } from 'src/app/services/countdown.service';
 import { TaskService } from 'src/app/services/task.service';
@@ -32,9 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.countdownService.seconds$.subscribe(number => {
-      const timerTemplate = this.countdownService.toString(number)
-      this.minutesTemplate = timerTemplate.minutes
-      this.secondsTemplate = timerTemplate.seconds
+      this.setCountdownTemplate(number)
     })
   }
 
@@ -47,11 +46,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.countdownService.timer(data.secondsAmount)
       this.activeCycle = true
     })
+    this.form.reset()
   }
 
   interruptCycle() {
     this.subscription.unsubscribe()
     this.countdownService.cancelSubscription()
+    this.setCountdownTemplate(0)
+  }
+
+  setCountdownTemplate(number: number): void {
+    const countdown = this.countdownService.toString(number)
+
+    this.minutesTemplate = countdown.minutes
+    this.secondsTemplate = countdown.seconds
   }
 
 }

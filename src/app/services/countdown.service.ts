@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { timer } from 'rxjs';
+import { CountdownTemplate } from '../models/CountdownTemplate';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class CountdownService {
     return minutes * 60;
   }
 
-  toString(seconds: number) {
+  toString(seconds: number): CountdownTemplate {
     const minutesAmount = Math.floor(seconds / 60)
     const secondsAmount = seconds % 60
 
