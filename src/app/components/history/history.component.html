@@ -11,15 +11,15 @@
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngFor="let task of tasks">
           <tr>
-            <td>cycle.task</td>
-            <td>cycle.minutesAmount minutos</td>
-            <td>date</td>
+            <td>{{ task.task }}</td>
+            <td>{{ task.secondsAmount / 60 }} minuto{{ (task.secondsAmount / 60) > 1 ? 's' : '' }}</td>
+            <td>{{ task.createdAt | date: 'dd/MM/yyyy' }}</td>
             <td>
-              <span class="status-green">Concluído</span>
-              <span class="status-red">Interrompido</span>
-              <span class="status-yellow">Em andamento</span>
+              <span *ngIf="task.finishedAt" class="status-green">Concluído</span>
+              <span *ngIf="task.interruptedAt" class="status-red">Interrompido</span>
+              <span *ngIf="!task.finishedAt && !task.interruptedAt" class="status-yellow">Em andamento</span>
             </td>
           </tr>
       </tbody>
