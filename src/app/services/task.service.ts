@@ -10,7 +10,7 @@ import { TaskFilters } from '../models/filters/task-filter';
 })
 
 export class TaskService {
-  private readonly API = 'http://localhost:3000/tasks'
+  private readonly API = 'http://localhost:8080/tasks'
 
   private taskSubject = new BehaviorSubject<Task[]>([])
   tasks$ = this.taskSubject.asObservable()
@@ -54,8 +54,8 @@ export class TaskService {
     return newTask
   }
 
-  update(task: Task): Task {
-    const url = `${this.API}/${task.id}`
+  update(task: Task, aditionalPathUrl: string = ''): Task {
+    const url = `${this.API}/${task.id}${aditionalPathUrl}`
     this.http.put<Task>(url, task).subscribe(taskUpdated => {
       task = taskUpdated
       const tasks = this.taskSubject.getValue()
@@ -69,7 +69,7 @@ export class TaskService {
 
   updateTaskCompleted(): Task {
     this.activeTask.finishedAt = new Date()
-    const taskUpdate = this.update(this.activeTask)
+    const taskUpdate = this.update(this.activeTask, '/complete')
     this.activeTask = null
     console.log('finish update', taskUpdate)
 
@@ -78,7 +78,7 @@ export class TaskService {
 
   updateTaskInterrupt(): Task {
     this.activeTask.interruptedAt = new Date()
-    const taskUpdate = this.update(this.activeTask)
+    const taskUpdate = this.update(this.activeTask, '/interrupt')
     this.activeTask = null
 
     console.log('interrupt update', taskUpdate)
