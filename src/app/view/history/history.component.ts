@@ -12,8 +12,6 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class HistoryComponent implements OnInit, OnDestroy {
   private readonly DEBOUCE_TIME = 300
-  // quantas páginas aparecem ao lado da página atual
-  private readonly siblingsCount = 1;
 
   taskPagination: TaskPagination
   subscription: Subscription
