@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task, UnsavedTask } from '../models/task';
+import { Task, TaskPagination, UnsavedTask } from '../models/task';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CountdownService } from './countdown.service';
@@ -12,25 +12,23 @@ import { TaskFilters } from '../models/filters/task-filter';
 export class TaskService {
   private readonly API = 'http://localhost:8080/tasks'
 
-  private taskSubject = new BehaviorSubject<Task[]>([])
-  tasks$ = this.taskSubject.asObservable()
+  private taskSubject = new BehaviorSubject<TaskPagination>({} as TaskPagination)
+  taskPagination$ = this.taskSubject.asObservable()
   activeTask: Task
 
   constructor(private http: HttpClient) { }
 
   list(filter: TaskFilters = {} as TaskFilters): void {
-    console.log('list ', filter)
     let params = new HttpParams()
     const keysFilters = Object.keys(filter)
 
     if (keysFilters.length > 0) {
       keysFilters.forEach(key => {
-        console.log(key, filter[key])
         params = params.set(key, filter[key])
       })
     }
 
-    this.http.get<Task[]>(this.API, { params }).subscribe(tasks => {
+    this.http.get<TaskPagination>(this.API, { params }).subscribe(tasks => {
       this.taskSubject.next(tasks)
     })
   }
@@ -45,10 +43,10 @@ export class TaskService {
     }
 
     this.http.post<Task>(this.API, newTask).subscribe(task => {
-      const tasks = this.taskSubject.getValue()
-      tasks.unshift(task)
+      const paginationTasks = this.taskSubject.getValue()
+      paginationTasks.content.unshift(task)
+      this.taskSubject.next(paginationTasks)
       this.activeTask = task
-      this.taskSubject.next(tasks)
     })
 
     return newTask
@@ -58,10 +56,10 @@ export class TaskService {
     const url = `${this.API}/${task.id}${aditionalPathUrl}`
     this.http.put<Task>(url, task).subscribe(taskUpdated => {
       task = taskUpdated
-      const tasks = this.taskSubject.getValue()
-      const index = tasks.findIndex(item => item.id === task.id)
-      tasks[index] = task
-      this.taskSubject.next(tasks)
+      const paginationTasks = this.taskSubject.getValue()
+      const index = paginationTasks.content.findIndex(item => item.id === task.id)
+      paginationTasks.content[index] = task
+      this.taskSubject.next(paginationTasks)
     })
 
     return task

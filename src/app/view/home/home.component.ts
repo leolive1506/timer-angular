@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.service.list({ _limit: 3 })
-    this.service.tasks$.subscribe(tasks => {
-      this.taskSuggestions = tasks
+    this.service.list({ _limit: 1 })
+    this.service.taskPagination$.subscribe(taskPagination => {
+      this.taskSuggestions = taskPagination.content
     })
 
     this.subscription = this.countdownService.seconds$.subscribe({

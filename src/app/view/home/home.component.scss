@@ -31,11 +31,6 @@ main.home-container {
       width: 2rem
     }
 
-    &:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
     &.stop-countdown-button {
       background: var(--red-500);
 
