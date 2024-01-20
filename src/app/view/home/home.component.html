@@ -31,15 +31,15 @@
         />
 
         <div class="text-error" *ngIf="form.get('minutesAmount')?.touched">
-          <div class="text-error" *ngIf="form.get('minutesAmount')?.errors?.['required']">
+          <span *ngIf="form.get('minutesAmount')?.errors?.['required']">
             O valor minimo é um
-          </div>
-          <div class="text-error" *ngIf="form.get('minutesAmount')?.errors?.['min']">
+          </span>
+          <span *ngIf="form.get('minutesAmount')?.errors?.['min']">
             O valor minimo é um
-          </div>
-          <div class="text-error" *ngIf="form.get('minutesAmount')?.errors?.['max']">
+          </span>
+          <span *ngIf="form.get('minutesAmount')?.errors?.['max']">
             O valor máximo é 60
-          </div>
+          </span>
         </div>
       </div>
 
