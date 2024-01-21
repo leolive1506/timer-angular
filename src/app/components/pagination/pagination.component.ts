@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from 'src/app/models/task';
 import { Pagination } from 'src/app/models/pagination';
 
@@ -19,7 +19,7 @@ export class PaginationComponent {
 
   @Input() set pagination(value: Pagination<Task>) {
     this._pagination = value
-    this.numbersPage = Array(this.pagination.totalPages).fill(0).map((x, i) => i + 1)
+    this.numbersPage = Array(this.pagination.totalPages).fill(0).map((_, i) => i + 1)
   }
 
   @Input() previousPage = (): void => { throw new Error('Method nextPage() not implemented.') }
