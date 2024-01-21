@@ -34,6 +34,7 @@ export class HistoryComponent implements OnInit, OnDestroy, IPagination {
     }
 
     this.filters$.subscribe(input => {
+      this.filters._page = 0
       this.filters.task_like = input
       this.taskService.list(this.filters)
     })
