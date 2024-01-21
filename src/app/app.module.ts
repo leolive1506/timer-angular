@@ -10,6 +10,7 @@ import { HomeComponent } from './view/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HistoryComponent } from './view/history/history.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HistoryComponent } from './view/history/history.component';
     CountdownComponent,
     HeaderComponent,
     HomeComponent,
-    HistoryComponent
+    HistoryComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

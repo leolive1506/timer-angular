@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Task, TaskPagination, UnsavedTask } from '../models/task';
+import { Task, UnsavedTask } from '../models/task';
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CountdownService } from './countdown.service';
 import { TaskFilters } from '../models/filters/task-filter';
+import { Pagination } from '../models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { TaskFilters } from '../models/filters/task-filter';
 export class TaskService {
   private readonly API = 'http://localhost:8080/tasks'
 
-  private taskSubject = new BehaviorSubject<TaskPagination>({} as TaskPagination)
+  private taskSubject = new BehaviorSubject<Pagination<Task>>({} as Pagination<Task>)
   taskPagination$ = this.taskSubject.asObservable()
   activeTask: Task
 
@@ -28,7 +29,7 @@ export class TaskService {
       })
     }
 
-    this.http.get<TaskPagination>(this.API, { params }).subscribe(tasks => {
+    this.http.get<Pagination<Task>>(this.API, { params }).subscribe(tasks => {
       this.taskSubject.next(tasks)
     })
   }

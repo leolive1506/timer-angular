@@ -1,8 +1,11 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription, debounceTime, filter, map } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
+import { IPagination } from 'src/app/components/pagination/IPagination';
 import { TaskFilters } from 'src/app/models/filters/task-filter';
-import { TaskPagination } from 'src/app/models/task';
+import { Pagination } from 'src/app/models/pagination';
+import { Task } from 'src/app/models/task';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -10,14 +13,13 @@ import { TaskService } from 'src/app/services/task.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent implements OnInit, OnDestroy {
+export class HistoryComponent implements OnInit, OnDestroy, IPagination {
   private readonly DEBOUCE_TIME = 300
 
-  taskPagination: TaskPagination
+  taskPagination: Pagination<Task>
   subscription: Subscription
   fieldsSearch: FormControl = new FormControl('')
 
-  numbersPage = []
   filters: TaskFilters = { _limit: 2 };
 
   filters$ = this.fieldsSearch.valueChanges.pipe(
@@ -38,7 +40,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
     this.subscription = this.taskService.taskPagination$.subscribe(taskPagination => {
       this.taskPagination = taskPagination
-      this.numbersPage = Array(taskPagination.totalPages).fill(0).map((x, i) => i + 1)
     })
   }
 
@@ -46,12 +47,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  nextPage() {
+  nextPage = (): void => {
     this.filters._page = this.taskPagination.pageable.pageNumber + 1
     this.taskService.list(this.filters)
   }
 
-  previousPage() {
+  previousPage = (): void => {
     this.filters._page = this.taskPagination.pageable.pageNumber - 1
     this.taskService.list(this.filters)
   }
@@ -59,9 +60,5 @@ export class HistoryComponent implements OnInit, OnDestroy {
   changePageTo(to: number) {
     this.filters._page = to
     this.taskService.list(this.filters)
-  }
-
-  currentPage() {
-    return this.taskPagination.pageable.pageNumber
   }
 }
