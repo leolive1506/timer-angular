@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task, UnsavedTask } from '../models/task';
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { CountdownService } from './countdown.service';
 import { TaskFilters } from '../models/filters/task-filter';
 import { Pagination } from '../models/pagination';
@@ -34,21 +34,13 @@ export class TaskService {
     })
   }
 
-  create(task: UnsavedTask): Task {
-    const newTask: Task = {
-      task: task.task,
-      secondsAmount: CountdownService.toSeconds(task.minutesAmount),
-      createdAt: new Date(),
-      finishedAt: null,
-      interruptedAt: null
-    }
+  async create(task: UnsavedTask): Promise<Task> {
+    const newTask = await lastValueFrom(this.http.post<Task>(this.API, task))
+    const paginationTasks = this.taskSubject.getValue()
 
-    this.http.post<Task>(this.API, newTask).subscribe(task => {
-      const paginationTasks = this.taskSubject.getValue()
-      paginationTasks.content.unshift(task)
-      this.taskSubject.next(paginationTasks)
-      this.activeTask = task
-    })
+    paginationTasks.content.unshift(newTask)
+    this.taskSubject.next(paginationTasks)
+    this.activeTask = newTask
 
     return newTask
   }
@@ -67,7 +59,6 @@ export class TaskService {
   }
 
   updateTaskCompleted(): Task {
-    this.activeTask.finishedAt = new Date()
     const taskUpdate = this.update(this.activeTask, '/complete')
     this.activeTask = null
     console.log('finish update', taskUpdate)
@@ -76,7 +67,6 @@ export class TaskService {
   }
 
   updateTaskInterrupt(): Task {
-    this.activeTask.interruptedAt = new Date()
     const taskUpdate = this.update(this.activeTask, '/interrupt')
     this.activeTask = null
 

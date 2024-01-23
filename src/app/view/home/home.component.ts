@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.service.list({ _limit: 1 })
+    this.service.list({ size: 3 })
     this.service.taskPagination$.subscribe(taskPagination => {
       this.taskSuggestions = taskPagination.content
     })
@@ -60,11 +60,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  submit(): void {
-    const task = this.service.create(this.form.value)
-    this.countdownService.timer(task.secondsAmount)
+  async submit() {
+    const result = await this.service.create(this.form.value)
     this.activeCycle = true
-
+    this.countdownService.timer(result.secondsAmount)
     this.form.reset()
   }
 

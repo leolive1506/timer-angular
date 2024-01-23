@@ -20,7 +20,7 @@ export class HistoryComponent implements OnInit, OnDestroy, IPagination {
   subscription: Subscription
   fieldsSearch: FormControl = new FormControl('')
 
-  filters: TaskFilters = { _limit: 2 };
+  filters: TaskFilters = { size: 2 };
 
   filters$ = this.fieldsSearch.valueChanges.pipe(
     debounceTime(this.DEBOUCE_TIME),
@@ -34,7 +34,7 @@ export class HistoryComponent implements OnInit, OnDestroy, IPagination {
     }
 
     this.filters$.subscribe(input => {
-      this.filters._page = 0
+      this.filters.page = 0
       this.filters.task_like = input
       this.taskService.list(this.filters)
     })
@@ -49,17 +49,17 @@ export class HistoryComponent implements OnInit, OnDestroy, IPagination {
   }
 
   nextPage = (): void => {
-    this.filters._page = this.taskPagination.pageable.pageNumber + 1
+    this.filters.page = this.taskPagination.pageable.pageNumber + 1
     this.taskService.list(this.filters)
   }
 
   previousPage = (): void => {
-    this.filters._page = this.taskPagination.pageable.pageNumber - 1
+    this.filters.page = this.taskPagination.pageable.pageNumber - 1
     this.taskService.list(this.filters)
   }
 
   changePageTo(to: number) {
-    this.filters._page = to
+    this.filters.page = to
     this.taskService.list(this.filters)
   }
 }
