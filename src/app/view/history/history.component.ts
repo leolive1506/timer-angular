@@ -1,6 +1,7 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
 import { IPagination } from 'src/app/components/pagination/IPagination';
 import { TaskFilters } from 'src/app/models/filters/task-filter';
@@ -26,7 +27,10 @@ export class HistoryComponent implements OnInit, OnDestroy, IPagination {
     debounceTime(this.DEBOUCE_TIME),
   )
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     if (!this.fieldsSearch.value) {
@@ -61,5 +65,9 @@ export class HistoryComponent implements OnInit, OnDestroy, IPagination {
   changePageTo(to: number) {
     this.filters.page = to
     this.taskService.list(this.filters)
+  }
+
+  continueTask(task: Task) {
+    this.taskService.updateTaskContinue(task)
   }
 }

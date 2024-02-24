@@ -11,6 +11,8 @@
           <th>Tarefa</th>
           <th>Duração</th>
           <th>Início</th>
+          <th>Interrompido em</th>
+          <th>Continuado em</th>
           <th>Status</th>
           <th></th>
         </tr>
@@ -20,13 +22,15 @@
             <td>{{ task.task }}</td>
             <td>{{ task.secondsAmount / 60 }} minuto{{ (task.secondsAmount / 60) > 1 ? 's' : '' }}</td>
             <td>{{ task.createdAt | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ task.interruptedAt | date: 'dd/MM/yyyy H:m:s' }}</td>
+            <td>{{ task.continuedAt | date: 'dd/MM/yyyy H:m:s' }}</td>
             <td>
               <span *ngIf="task.finishedAt" class="status-green">Concluído</span>
               <span *ngIf="task.interruptedAt" class="status-red">Interrompido</span>
               <span *ngIf="!task.finishedAt && !task.interruptedAt" class="status-yellow">Em andamento</span>
             </td>
             <td>
-              <button type="button" *ngIf="task.interruptedAt">
+              <button type="button" *ngIf="task.interruptedAt" (click)="continueTask(task)">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
                 </svg>

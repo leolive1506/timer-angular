@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Task, UnsavedTask } from '../models/task';
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { CountdownService } from './countdown.service';
+import { BehaviorSubject, Subscription, lastValueFrom } from 'rxjs';
 import { TaskFilters } from '../models/filters/task-filter';
 import { Pagination } from '../models/pagination';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class TaskService {
   taskPagination$ = this.taskSubject.asObservable()
   activeTask: Task
 
-  constructor(private http: HttpClient) { }
+  // constructor(private http: HttpClient, private countdownService: CountdownService) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   list(filter: TaskFilters = {} as TaskFilters): void {
     let params = new HttpParams()
@@ -72,6 +73,27 @@ export class TaskService {
 
     console.log('interrupt update', taskUpdate)
     return taskUpdate
+  }
+
+  updateTaskContinue(task: Task): Subscription {
+    const url = `${this.API}/${task.id}/continue`
+    return this.http.put<Task>(url, task).subscribe(taskUpdated => {
+      this.activeTask = taskUpdated
+
+      const createdAt = new Date(taskUpdated.createdAt)
+      const interruptedAt = new Date(taskUpdated.interruptedAt)
+      const continuedAt = new Date(taskUpdated.continuedAt)
+      const diff = continuedAt.getTime() - interruptedAt.getTime();
+
+      console.log('createdAt', createdAt)
+      console.log('interruptedAt', interruptedAt)
+      console.log('CONTINUE TASK')
+      console.log('continuedAt', continuedAt)
+
+      const restAmount = Math.ceil(taskUpdated.secondsAmount - diff / (1000))
+      this.activeTask.secondsRemaining = restAmount
+      this.router.navigate(['']);
+    })
   }
 
 }

@@ -54,6 +54,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     this.activeCycle = !!this.service.activeTask
+
+    if (this.service.activeTask?.secondsRemaining) {
+      this.countdownService.timer(this.service.activeTask.secondsRemaining)
+    }
   }
 
   ngOnDestroy(): void {

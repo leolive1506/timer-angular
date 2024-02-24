@@ -35,7 +35,7 @@ export class CountdownService {
       next: () => {
         if (isNumberValid) {
           isNumberValid = --currentSeconds > 0
-          console.log('CurrentSeconds: ', currentSeconds)
+          // console.log('CurrentSeconds: ', currentSeconds)
 
           this.secondsSubject.next(currentSeconds)
         } else {
